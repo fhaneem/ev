@@ -1,1 +1,37 @@
+<script>
+    const charging_duration = 5000; /* 5 seconds equal to 5 minutes*/
+    const minutes = 5;
+    const charged_kW = 100;
+//const PORT = 8080;
+    const queryString = window.location.search;
+    const req = new URLSearchParams(queryString);
+    const user_id = req.get('user_id');
+    const mevcharge_charger_id = req.get('mevcharge_charger_id');
+    const connector_code = req.get('connector_code');
+    const time_request = req.get('time_request');
+    const time_start = new Date(time_request);
 
+  //  const dt = time_start;
+    const time_stop = new Date(time_start);
+    time_stop.setMinutes(time_start.getMinutes() + minutes);
+    
+    setTimeout(function(){
+        var obj = new Object();
+    obj.user_id = user_id;
+    obj.connector_code = connector_code;
+    obj.time_request = time_start;
+    obj.mevcharge_charger_id = mevcharge_charger_id;
+    obj.status_charge = 'success';
+    obj.time_start = time_start;
+    obj.time_stop = time_stop;
+    obj.duration_min = minutes;
+    obj.kw_charged = '100';
+
+//convert object to json string
+    var string = JSON.stringify(obj);
+
+//convert string to Json Object
+    console.log(JSON.parse(string)); // this is your requirement.
+    },charging_duration);
+
+</script>
